@@ -22,15 +22,18 @@ body {
   background-color: #4a90e2;
   padding: 10px;
   border-radius: 10px;
+  width: 90%;
+  max-width: 1000px;
 }
 
 .header input {
   padding: 10px;
   margin: 5px;
-  min-width: 80px;
+  min-width: 60px;
   max-width: 150px;
   border: 2px solid #d0d0d0;
   border-radius: 5px;
+  flex-grow: 1;
 }
 
 .header button {
@@ -41,21 +44,22 @@ body {
   color: white;
   border: none;
   border-radius: 5px;
+  flex-grow: 0;
 }
 
 .building-container {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  width: 70%;
-  max-width: 95%;
+  width: 90%;
+  max-width: 1200px;
   background-color: #ffffff;
   border: 2px solid #cccccc;
   border-radius: 5px;
   margin-top: 20px;
   padding: 20px;
-  overflow-y: auto;
   height: auto;
+  overflow-y: auto;
 }
 
 .floor {
@@ -98,10 +102,11 @@ body {
   color: #333333;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .floor-buttons button:disabled {
-  background-color: #888888; 
-  color: #ffffff; 
-  cursor: not-allowed; 
+  background-color: #888888;
+  color: #ffffff;
+  cursor: not-allowed;
 }
 
 .lifts-container {
@@ -116,6 +121,7 @@ body {
 .lift {
   width: 50px;
   height: 80px;
+  min-width: 50px;
   background-color: #9b9b9b;
   border: 2px solid #555555;
   border-radius: 5px;
@@ -202,4 +208,33 @@ body {
 .lift.open {
   background-color: #f2f2f2;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1200px) {
+  .header {
+    width: 95%;
+  }
+
+  .building-container {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .header input,
+  .header button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 5px;
+  }
 }

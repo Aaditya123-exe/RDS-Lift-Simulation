@@ -22,7 +22,6 @@ function generateBuilding(floors, liftCount) {
   liftState = [];
   pendingRequests = [];
 
-  // Create floors in correct order (from bottom to top)
   for (let i = 0; i < floors; i++) {
     const floorDiv = document.createElement("div");
     floorDiv.className = "floor";
