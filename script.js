@@ -1,8 +1,12 @@
 document.querySelector(".header button").addEventListener("click", () => {
   const floors = parseInt(document.getElementById("floorsInput").value);
   const lifts = parseInt(document.getElementById("liftsInput").value);
+  if (floors < 0 || lifts < 0) {
+    alert("Please enter a valid number");
+    return;
+  }
   generateBuilding(floors, lifts);
-  document.getElementById("buildingContainer").style.display = "flex"; 
+  document.getElementById("buildingContainer").style.display = "flex";
 });
 
 // Data Store
@@ -12,7 +16,7 @@ let pendingRequests = [];
 // Function to generate the building structure
 function generateBuilding(floors, liftCount) {
   const buildingContainer = document.getElementById("buildingContainer");
-  buildingContainer.innerHTML = ""; 
+  buildingContainer.innerHTML = "";
   liftState = [];
   pendingRequests = [];
 
@@ -35,12 +39,12 @@ function generateBuilding(floors, liftCount) {
     const upButton = document.createElement("button");
     upButton.innerText = "Up";
     upButton.onclick = () => handleLiftRequest(i, "up");
-    if (i === floors - 1) upButton.style.display = "none"; 
+    if (i === floors - 1) upButton.style.display = "none";
 
     const downButton = document.createElement("button");
     downButton.innerText = "Down";
     downButton.onclick = () => handleLiftRequest(i, "down");
-    if (i === 0) downButton.style.display = "none"; 
+    if (i === 0) downButton.style.display = "none";
     floorButtons.appendChild(upButton);
     floorButtons.appendChild(downButton);
 
@@ -123,7 +127,6 @@ function moveLift(lift, targetFloor, callback) {
   lift.state = "moving";
   const liftElement = lift.element;
 
-
   const floorHeight = 100;
   const targetPosition = targetFloor * floorHeight;
 
@@ -135,7 +138,6 @@ function moveLift(lift, targetFloor, callback) {
     if (callback) callback();
   }, 2000 * Math.abs(targetFloor - lift.currentFloor));
 }
-
 
 function operateLift(lift, floor, callback) {
   lift.state = "opening";
@@ -150,8 +152,8 @@ function operateLift(lift, floor, callback) {
       lift.element.classList.remove("closing");
       lift.state = "stopped";
       if (callback) callback();
-    }, 1000); 
-  }, 2000); 
+    }, 1000);
+  }, 2000);
 }
 
 // Function to disable specific button on a floor
