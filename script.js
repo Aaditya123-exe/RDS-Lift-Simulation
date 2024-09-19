@@ -1,9 +1,8 @@
-// Event listener for the generate button
 document.querySelector(".header button").addEventListener("click", () => {
   const floors = parseInt(document.getElementById("floorsInput").value);
   const lifts = parseInt(document.getElementById("liftsInput").value);
   generateBuilding(floors, lifts);
-  document.getElementById("buildingContainer").style.display = "flex"; // Show the building after generation
+  document.getElementById("buildingContainer").style.display = "flex"; 
 });
 
 // Data Store
@@ -13,11 +12,9 @@ let pendingRequests = [];
 // Function to generate the building structure
 function generateBuilding(floors, liftCount) {
   const buildingContainer = document.getElementById("buildingContainer");
-  buildingContainer.innerHTML = ""; // Clear existing content
+  buildingContainer.innerHTML = ""; 
   liftState = [];
   pendingRequests = [];
-
-  const floorHeight = 80; // Fixed height of 80px for all floors
 
   // Create floors in correct order (from bottom to top)
   for (let i = 0; i < floors; i++) {
@@ -38,13 +35,12 @@ function generateBuilding(floors, liftCount) {
     const upButton = document.createElement("button");
     upButton.innerText = "Up";
     upButton.onclick = () => handleLiftRequest(i, "up");
-    if (i === floors - 1) upButton.style.display = "none"; // Hide Up button on top floor
+    if (i === floors - 1) upButton.style.display = "none"; 
 
     const downButton = document.createElement("button");
     downButton.innerText = "Down";
     downButton.onclick = () => handleLiftRequest(i, "down");
-    if (i === 0) downButton.style.display = "none"; // Hide Down button on ground floor
-
+    if (i === 0) downButton.style.display = "none"; 
     floorButtons.appendChild(upButton);
     floorButtons.appendChild(downButton);
 
@@ -88,13 +84,11 @@ function handleLiftRequest(floor, direction) {
 
 // Function to find an available lift
 function findAvailableLift(targetFloor) {
-  // First, look for a lift on the same floor that is stopped
   const liftOnSameFloor = liftState.find(
     (lift) => lift.currentFloor === targetFloor && lift.state === "stopped"
   );
   if (liftOnSameFloor) return liftOnSameFloor;
 
-  // If no lift on the same floor, find any stopped lift
   const stoppedLift = liftState.find((lift) => lift.state === "stopped");
   return stoppedLift;
 }
@@ -129,14 +123,12 @@ function moveLift(lift, targetFloor, callback) {
   lift.state = "moving";
   const liftElement = lift.element;
 
-  // Fixed height of 80px per floor
+
   const floorHeight = 100;
   const targetPosition = targetFloor * floorHeight;
 
-  // Move lift vertically to the target floor
   liftElement.style.transform = `translateY(-${targetPosition}px)`;
 
-  // Simulate lift movement time (2 seconds per floor)
   setTimeout(() => {
     lift.currentFloor = targetFloor;
     lift.state = "stopped";
@@ -144,22 +136,6 @@ function moveLift(lift, targetFloor, callback) {
   }, 2000 * Math.abs(targetFloor - lift.currentFloor));
 }
 
-// Function to operate lift doors (open and close)
-// function operateLift(lift, floor, callback) {
-//   lift.state = "opening";
-//   const liftElement = lift.element;
-//   liftElement.classList.add("open");
-
-//   setTimeout(() => {
-//     lift.state = "closing";
-//     liftElement.classList.remove("open");
-
-//     setTimeout(() => {
-//       lift.state = "stopped";
-//       if (callback) callback();
-//     }, 2500);
-//   }, 2500);
-// }
 
 function operateLift(lift, floor, callback) {
   lift.state = "opening";
@@ -174,8 +150,8 @@ function operateLift(lift, floor, callback) {
       lift.element.classList.remove("closing");
       lift.state = "stopped";
       if (callback) callback();
-    }, 1000); // Match the animation duration
-  }, 2000); // Time before closing starts
+    }, 1000); 
+  }, 2000); 
 }
 
 // Function to disable specific button on a floor
