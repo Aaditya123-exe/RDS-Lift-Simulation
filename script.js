@@ -1,8 +1,10 @@
 document.querySelector(".header button").addEventListener("click", () => {
   const floors = parseInt(document.getElementById("floorsInput").value);
   const lifts = parseInt(document.getElementById("liftsInput").value);
-  if (floors < 0 || lifts < 0) {
+  if (floors <= 0 || lifts <= 0) {
     alert("Please enter a valid number");
+    const buildingContainer = document.getElementById("buildingContainer");
+    buildingContainer.innerHTML = "";
     return;
   }
   generateBuilding(floors, lifts);
