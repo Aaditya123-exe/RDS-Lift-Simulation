@@ -57,6 +57,9 @@ function generateBuilding(floors, liftCount) {
     if (i === 0) {
       liftsContainer = document.createElement("div");
       liftsContainer.className = "lifts-container";
+      if (floors == 1) {
+        liftCount = 1;
+      }
 
       for (let j = 0; j < liftCount; j++) {
         const lift = document.createElement("div");
@@ -131,14 +134,17 @@ function moveLift(lift, targetFloor, callback) {
 
   const floorHeight = 100;
   const targetPosition = targetFloor * floorHeight;
+  const floorDifference = Math.abs(targetFloor - lift.currentFloor);
+  const travelTime = 4000 * floorDifference;
 
+  liftElement.style.transitionDuration = `${4 * floorDifference}s`;
   liftElement.style.transform = `translateY(-${targetPosition}px)`;
 
   setTimeout(() => {
     lift.currentFloor = targetFloor;
     lift.state = "stopped";
     if (callback) callback();
-  }, 2000 * Math.abs(targetFloor - lift.currentFloor));
+  }, travelTime);
 }
 
 function operateLift(lift, floor, callback) {
