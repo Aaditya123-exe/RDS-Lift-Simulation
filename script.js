@@ -134,9 +134,9 @@ function moveLift(lift, targetFloor, callback) {
   const floorHeight = 100;
   const targetPosition = targetFloor * floorHeight;
   const floorDifference = Math.abs(targetFloor - lift.currentFloor);
-  const travelTime = 4000 * floorDifference;
+  const travelTime = 3000 * floorDifference;
 
-  liftElement.style.transitionDuration = `${4 * floorDifference}s`;
+  liftElement.style.transitionDuration = `${3 * floorDifference}s`;
   liftElement.style.transform = `translateY(-${targetPosition}px)`;
 
   setTimeout(() => {

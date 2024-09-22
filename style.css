@@ -127,7 +127,7 @@ body {
   border-radius: 5px;
   position: relative;
   overflow: hidden;
-  transition: transform 2s ease, background-color 1ms ease;
+  transition: transform 0s ease, background-color 0.5s ease;
   z-index: 9999;
 }
 
