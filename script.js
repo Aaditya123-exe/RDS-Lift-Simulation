@@ -90,15 +90,25 @@ function handleLiftRequest(floor, direction) {
   processRequests();
 }
 
-// Function to find an available lift
+// Function to find the nearest available stopped lift
 function findAvailableLift(targetFloor) {
-  const liftOnSameFloor = liftState.find(
-    (lift) => lift.currentFloor === targetFloor && lift.state === "stopped"
-  );
-  if (liftOnSameFloor) return liftOnSameFloor;
+  let nearestLift = null;
+  let minDistance = Infinity;
 
-  const stoppedLift = liftState.find((lift) => lift.state === "stopped");
-  return stoppedLift;
+  // Iterate through the lifts to find the nearest stopped lift
+  for (const lift of liftState) {
+    // Check only stopped lifts
+    if (lift.state === "stopped") {
+      const distance = Math.abs(lift.currentFloor - targetFloor);
+      // Update nearest lift if this one is closer
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestLift = lift;
+      }
+    }
+  }
+
+  return nearestLift;
 }
 
 // Function to process lift requests
